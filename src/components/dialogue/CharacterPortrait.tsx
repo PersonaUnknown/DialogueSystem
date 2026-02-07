@@ -11,20 +11,21 @@ interface Props {
  */
 const CharacterPortrait = forwardRef(
 	({ portraits }: Props, ref: Ref<CharacterPortraitRef>) => {
-		const [portraitPath, setPortraitPath] = useState<string>(
-			portraits.get("idle") ?? "/src/assets/404_page_not_found.png",
-		);
+		const [currSpeakerState, setCurrSpeakerState] =
+			useState<SpeakerState>("idle");
 		const updatePortrait = (state: SpeakerState) => {
 			const newPath = portraits.get(state);
 			if (newPath === undefined) {
 				console.error(`Attempted to set invalid portrait state: ${state}`);
 				return;
 			}
-			setPortraitPath(portraitPath);
+			setCurrSpeakerState(state);
 		};
 		useImperativeHandle(ref, () => ({
 			updatePortrait: updatePortrait,
 		}));
+		const portraitPath =
+			portraits.get(currSpeakerState) ?? "/src/assets/404_page_not_found.png";
 		return (
 			<img
 				src={portraitPath}

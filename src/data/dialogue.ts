@@ -23,5 +23,10 @@ export const EXAMPLE_CONVERSATION: Conversation = {
 			dialogue: ["Hello world"],
 			callback: null,
 		},
+		{
+			speakerState: "smile",
+			dialogue: ["This is me smiling", ":) :) :) :) :) :)"],
+			callback: null,
+		},
 	],
 };
