@@ -1,0 +1,73 @@
+.char-portrait {
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+    user-select: none;
+    scale: 0.9;
+    transform-origin: bottom center;
+}
+
+.dialogue-box {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20%;
+    background-color: rgba(24, 24, 24, 0.75);
+}
+
+@media (min-width: 640px) { 
+    .dialogue-box {
+        height: 25%;
+	}
+}
+
+.dialogue-name-tag {
+    position: absolute;
+    color: #ffffff;
+    user-select: none;
+    background-color: rgb(24, 24, 24);
+}
+
+@media (max-width: 640px) {
+    .dialogue-name-tag {
+        font-size: 1.25rem;
+        padding: 0.75rem 1rem 0.75rem 1rem;
+    }
+}
+
+@media (min-width: 640px) { 
+    .dialogue-name-tag {
+		font-size: 1rem;
+        padding: 0.75rem 1rem 0.75rem 1rem;
+	}
+}
+
+@media (min-width: 768px) { 
+    .dialogue-name-tag {
+		font-size: 1.5rem;
+        padding: 0.75rem 1.25rem 0.75rem 1.25rem;
+	}
+}
+
+@media (min-width: 1024px) { 
+	.dialogue-name-tag {
+		font-size: 2rem;
+        padding: 0.75rem 1.5rem 0.75rem 1.5rem;
+	}
+}
+
+@media (min-width: 1280px) {
+    .dialogue-name-tag {
+        font-size: 2.5rem;
+        padding: 0.75rem 1.75rem 0.75rem 1.75rem;
+    }
+}
+
+@media (min-width: 1536px) { 
+	.dialogue-name-tag {
+        font-size: 3rem;
+        padding: 0.75rem 2rem 0.75rem 2rem;
+	}
+}

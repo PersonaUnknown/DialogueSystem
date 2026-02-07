@@ -1,0 +1,49 @@
+.dialogue-text {
+    user-select: none;
+    color: #ffffff;
+    line-height: 1.4; 
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+    .dialogue-text {
+        font-size: 1.25rem;
+        padding: 1rem;
+    }
+}
+
+@media (min-width: 640px) { 
+    .dialogue-text {
+		font-size: 1rem;
+        padding: 1rem;
+	}
+}
+
+@media (min-width: 768px) { 
+    .dialogue-text {
+		font-size: 1.5rem;
+        padding: 1.25rem;
+	}
+}
+
+@media (min-width: 1024px) { 
+	.dialogue-text {
+		font-size: 2rem;
+        padding: 1.5rem;
+	}
+}
+
+@media (min-width: 1280px) { 
+	.dialogue-text {
+        font-size: 2.5rem;
+        padding: 1.75rem;
+	}
+}
+
+@media (min-width: 1536px) { 
+	.dialogue-text {
+        font-size: 3rem;
+        padding: 2rem;
+	}
+}
