@@ -8,6 +8,15 @@
 	transform-origin: bottom center;
 }
 
+.talk-dialogue-button {
+	background: #181818;
+	border: transparent;
+	color: #ffffff;
+	font-size: 2rem;
+	padding: 1rem 2rem;
+	cursor: pointer;
+}
+
 .next-dialogue-button {
 	border: transparent;
 	background: transparent;

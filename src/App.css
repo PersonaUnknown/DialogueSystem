@@ -4,6 +4,13 @@ body {
 	font-family: Verdana, sans-serif;
 }
 
+.absolute-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
 .video-container {
 	aspect-ratio: 9 / 16;
 }
