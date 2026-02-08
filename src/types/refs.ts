@@ -6,5 +6,11 @@ export interface CharacterPortraitRef {
 
 export interface DialogueBoxRef {
 	updateDialogueIndex: (index: number) => void;
+}
+
+export interface TypewriterRef {
+	typeAnim: () => void;
+	isAnimationFinished: () => boolean;
 	finishAnimation: () => void;
+	hideText: () => void;
 }

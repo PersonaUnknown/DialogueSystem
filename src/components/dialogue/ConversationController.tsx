@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { Conversation } from "../../types/dialogue";
 import type { CharacterPortraitRef, DialogueBoxRef } from "../../types/refs";
 import CharacterPortrait from "./CharacterPortrait";
@@ -15,7 +15,7 @@ interface Props {
  */
 const ConversationController = ({ conversation }: Props) => {
 	// State + Data Parsing
-	const [dialogueFinished, setDialogueFinished] = useState<boolean>(true);
+	const [dialogueFinished, setDialogueFinished] = useState<boolean>(false);
 	const [currEventIndex, setCurrEventIndex] = useState<number>(0);
 	const portraitRef = useRef<CharacterPortraitRef>(null);
 	const dialogueBoxRef = useRef<DialogueBoxRef>(null);
@@ -63,7 +63,6 @@ const ConversationController = ({ conversation }: Props) => {
 		}
 		// TODO: Add switch statement parsing EventFunc possibilities
 	};
-	useEffect(() => {}, []);
 	return (
 		<div
 			draggable={false}

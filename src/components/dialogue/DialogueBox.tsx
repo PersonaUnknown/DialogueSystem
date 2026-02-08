@@ -7,7 +7,7 @@ import {
 	useState,
 } from "react";
 import { RxDoubleArrowRight } from "react-icons/rx";
-import type { DialogueBoxRef } from "../../types/refs";
+import type { DialogueBoxRef, TypewriterRef } from "../../types/refs";
 import Typewriter from "../text/Typewriter";
 import "./index.css";
 
@@ -27,13 +27,19 @@ const DialogueBox = forwardRef(
 	) => {
 		// State + Ref
 		const nameTagRef = useRef<HTMLDivElement>(null);
+		const typewriterRef = useRef<TypewriterRef>(null);
 		const [nameTopOffset, setNameTopOffset] = useState<number>(0);
 		const [currDialogueIndex, setCurrDialogueIndex] = useState<number>(0);
 		/**
 		 * Progresses dialogue to next section, or progresses conversation if at end of dialogue section
 		 */
 		const progressDialogue = () => {
+			if (!typewriterRef.current?.isAnimationFinished()) {
+				typewriterRef.current?.finishAnimation();
+				return;
+			}
 			const nextIndex = currDialogueIndex + 1;
+			typewriterRef.current?.hideText();
 			if (nextIndex >= dialogue.length) {
 				progressConversation();
 			} else {
@@ -51,12 +57,6 @@ const DialogueBox = forwardRef(
 			setCurrDialogueIndex(index);
 		};
 		/**
-		 * Triggers the TypeWriter component to finish its typing animation
-		 */
-		const finishAnimation = () => {
-			// TODO: Finish implementation
-		};
-		/**
 		 * Calculates where to place name tag section (directly above dialogue box)
 		 */
 		useEffect(() => {
@@ -71,9 +71,11 @@ const DialogueBox = forwardRef(
 				window.removeEventListener("resize", updateTopOffset);
 			};
 		}, []);
+		/**
+		 * DialogueBoxRef Setup
+		 */
 		useImperativeHandle(ref, () => ({
 			updateDialogueIndex: updateDialogueIndex,
-			finishAnimation: finishAnimation,
 		}));
 		return (
 			<div className="dialogue-box">
@@ -84,7 +86,7 @@ const DialogueBox = forwardRef(
 				>
 					{speakerName}
 				</div>
-				<Typewriter text={dialogue[currDialogueIndex]} />
+				<Typewriter text={dialogue[currDialogueIndex]} ref={typewriterRef} />
 				<button
 					className="next-dialogue-button"
 					onClick={progressDialogue}
