@@ -14,3 +14,9 @@ export interface TypewriterRef {
 	finishAnimation: () => void;
 	hideText: () => void;
 }
+
+export interface MultipleChoiceOverlayRef {
+	showOverlay: () => void;
+	hideOverlay: () => void;
+	updateChoices: (options: Map<string, number>) => void;
+}

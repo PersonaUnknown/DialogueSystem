@@ -32,6 +32,7 @@ export const EXAMPLE_CONVERSATION: Conversation = {
 			callback: null,
 		},
 	],
+	questions: [],
 };
 
 /**
@@ -61,4 +62,56 @@ export const EXAMPLE_CONVERSATION_ROUNDABOUT: Conversation = {
 			callback: ["jump_to", 2],
 		},
 	],
+	questions: [],
+};
+
+/**
+ * Random multiple choice question to be used in example conversation below.
+ * Questions are formatted as: [key, value] where key = response and value = index to jump to
+ */
+const exampleQuestion: Map<string, number> = new Map([
+	["Is this a trick question? It's 4, obviously.", 4],
+	["Ummm..... Threee?", 1],
+	["Let's see. Carry the 2 and the 2... Aha! The answer is 5.", 3],
+]);
+
+/**
+ * Conversation that involves multiple choice question.
+ */
+export const EXAMPLE_CONVERSATION_MULTI: Conversation = {
+	speakerData: KIRUMI_TOJO_CHAR,
+	events: [
+		{
+			speakerState: "idle",
+			dialogue: ["I'm going to ask you a simple question.", "What's 2 + 2?"],
+			callback: ["multiple_choice", 0],
+		},
+		{
+			speakerState: "stern",
+			dialogue: [
+				"That's the wrong answer, you fool.",
+				"How could you not know what the answer is?!?!",
+			],
+			callback: null,
+		},
+		{
+			speakerState: "point",
+			dialogue: ["I will ask you again. What is 2 + 2?"],
+			callback: ["multiple_choice", 0],
+		},
+		{
+			speakerState: "point",
+			dialogue: ["Seriously? You did all that thinking and came up with 5?"],
+			callback: ["jump_to", 2],
+		},
+		{
+			speakerState: "smile",
+			dialogue: [
+				"Yes, that's correct. I'm glad you understand that 2 + 2 = 4.",
+				"You're sooooo smart. Yippee!!!",
+			],
+			callback: ["end_conversation", null],
+		},
+	],
+	questions: [exampleQuestion],
 };

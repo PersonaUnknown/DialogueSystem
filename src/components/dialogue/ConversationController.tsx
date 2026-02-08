@@ -1,9 +1,14 @@
 import { useRef, useState } from "react";
 import type { Conversation } from "../../types/dialogue";
-import type { CharacterPortraitRef, DialogueBoxRef } from "../../types/refs";
+import type {
+	CharacterPortraitRef,
+	DialogueBoxRef,
+	MultipleChoiceOverlayRef,
+} from "../../types/refs";
 import CharacterPortrait from "./CharacterPortrait";
 import DialogueBox from "./DialogueBox";
 import DialogueButton from "./DialogueButton";
+import MultipleChoiceOverlay from "./MultipleChoiceOverlay";
 import "./index.css";
 
 interface Props {
@@ -19,7 +24,8 @@ const ConversationController = ({ conversation }: Props) => {
 	const [currEventIndex, setCurrEventIndex] = useState<number>(0);
 	const portraitRef = useRef<CharacterPortraitRef>(null);
 	const dialogueBoxRef = useRef<DialogueBoxRef>(null);
-	const { speakerData, events } = conversation;
+	const multiChoiceLayoutRef = useRef<MultipleChoiceOverlayRef>(null);
+	const { speakerData, events, questions } = conversation;
 	const currDialogue = events.map((event) => event.dialogue);
 	// Methods
 	/**
@@ -68,13 +74,22 @@ const ConversationController = ({ conversation }: Props) => {
 				? currEventIndex + 1
 				: callback[1];
 		const eventFunc = callback?.[0];
+		const params = callback?.[1];
 		switch (eventFunc) {
 			case "end_conversation":
 				endConversation();
 				break;
-			case "multiple_choice":
+			case "multiple_choice": {
 				// TODO: Show multiple choice responses
+				if (typeof params !== "number") {
+					console.error("Invalid parameter / index given.");
+					return;
+				}
+				const currChoices = questions[params];
+				multiChoiceLayoutRef.current?.updateChoices(currChoices);
+				multiChoiceLayoutRef.current?.showOverlay();
 				break;
+			}
 			default:
 				// Default is to just 'proceed' or 'jump' to next line (index-wise)
 				if (typeof nextIndex !== "number") {
@@ -84,6 +99,15 @@ const ConversationController = ({ conversation }: Props) => {
 				jumpToEvent(nextIndex);
 				break;
 		}
+	};
+	/**
+	 * When pressing on a multiple choice response, close the overlay and jump to the
+	 * specified index in the conversation data.
+	 */
+	const onMultiChoiceResponseClick = (index: number) => {
+		jumpToEvent(index);
+		multiChoiceLayoutRef.current?.hideOverlay();
+		multiChoiceLayoutRef.current?.updateChoices(new Map());
 	};
 	return (
 		<div
@@ -101,6 +125,10 @@ const ConversationController = ({ conversation }: Props) => {
 					position: "relative",
 				}}
 			>
+				<MultipleChoiceOverlay
+					ref={multiChoiceLayoutRef}
+					onMultiChoiceResponseClick={onMultiChoiceResponseClick}
+				/>
 				<CharacterPortrait
 					portraits={speakerData.portraits}
 					ref={portraitRef}
@@ -108,6 +136,7 @@ const ConversationController = ({ conversation }: Props) => {
 				{dialogueFinished ? (
 					<DialogueButton
 						className="absolute-center"
+						label="Talk"
 						onClick={initConversation}
 					/>
 				) : (

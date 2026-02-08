@@ -35,8 +35,10 @@ export interface Speaker {
 /**
  * Stores conversation data, including the dialogue flow and Speaker the user is conversing with.
  * Only designed around talking to a single Speaker visualized through static images
+ * Maps used to represent multiple choice questions that jump user to different parts in conversation
  */
 export interface Conversation {
 	speakerData: Speaker;
 	events: ConversationEvent[];
+	questions: Map<string, number>[];
 }

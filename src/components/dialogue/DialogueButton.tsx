@@ -1,19 +1,20 @@
 interface Props {
-	className: string;
+	className?: string;
+	label: string;
 	onClick: () => void;
 }
 
 /**
  * Dialogue option button component
  */
-const DialogueButton = ({ className, onClick }: Props) => {
+const DialogueButton = ({ className = "", label, onClick }: Props) => {
 	return (
 		<button
 			className={`${className} talk-dialogue-button`}
 			onClick={onClick}
 			type="button"
 		>
-			Talk
+			{label}
 		</button>
 	);
 };
