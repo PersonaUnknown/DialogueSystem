@@ -8,7 +8,7 @@ import {
 } from "react";
 import { RxDoubleArrowRight } from "react-icons/rx";
 import type { DialogueBoxRef, TypewriterRef } from "../../types/refs";
-import Typewriter from "../text/Typewriter";
+import Typewriter from "./text/Typewriter";
 import "./index.css";
 
 interface Props {

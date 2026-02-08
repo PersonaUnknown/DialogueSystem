@@ -15,6 +15,9 @@ export const KIRUMI_TOJO_CHAR: Speaker = {
 	displayName: "Kirumi Tojo",
 };
 
+/**
+ * Basic conversation with singular and multiple lines of dialogue per Event
+ */
 export const EXAMPLE_CONVERSATION: Conversation = {
 	speakerData: KIRUMI_TOJO_CHAR,
 	events: [
@@ -27,6 +30,35 @@ export const EXAMPLE_CONVERSATION: Conversation = {
 			speakerState: "smile",
 			dialogue: ["This is me smiling", ":) :) :) :) :) :)"],
 			callback: null,
+		},
+	],
+};
+
+/**
+ * Conversation that tests out callback functions
+ */
+export const EXAMPLE_CONVERSATION_ROUNDABOUT: Conversation = {
+	speakerData: KIRUMI_TOJO_CHAR,
+	events: [
+		{
+			speakerState: "idle",
+			dialogue: ["I am talking to you right now."],
+			callback: null,
+		},
+		{
+			speakerState: "embarassed",
+			dialogue: ["I'm gonna keep talking...", "Blah blah blah blah blah..."],
+			callback: ["jump_to", 3],
+		},
+		{
+			speakerState: "stern",
+			dialogue: ["I'm done talking to you!", "Good-bye. Peace out!!!"],
+			callback: ["end_conversation", null],
+		},
+		{
+			speakerState: "shy",
+			dialogue: ['This conversation is gonna "jump" to a different point.'],
+			callback: ["jump_to", 2],
 		},
 	],
 };

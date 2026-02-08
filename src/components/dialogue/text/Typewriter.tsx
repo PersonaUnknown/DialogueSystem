@@ -8,8 +8,8 @@ import {
 	useRef,
 	useState,
 } from "react";
-import useActiveProcess from "../../hooks/useActiveProcess";
-import type { TypewriterRef } from "../../types/refs";
+import useActiveProcess from "../../../hooks/useActiveProcess";
+import type { TypewriterRef } from "../../../types/refs";
 import "./index.css";
 
 interface Props {

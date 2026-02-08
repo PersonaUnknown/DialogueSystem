@@ -37,6 +37,27 @@ const ConversationController = ({ conversation }: Props) => {
 		setDialogueFinished(false);
 	};
 	/**
+	 * Jump to specified index in conversation
+	 */
+	const jumpToEvent = (index: number) => {
+		if (index >= 0 && index < events.length) {
+			// Update portrait + dialogue box
+			const nextEvent = events[index];
+			portraitRef?.current?.updatePortrait(nextEvent.speakerState);
+			dialogueBoxRef?.current?.updateDialogueIndex(0);
+			setCurrEventIndex(index);
+		} else {
+			endConversation();
+		}
+	};
+	/**
+	 * Ends the conversation
+	 */
+	const endConversation = () => {
+		portraitRef?.current?.updatePortrait("idle");
+		setDialogueFinished(true);
+	};
+	/**
 	 * Checks current dialogue section and progresses based on its callback.
 	 */
 	const progressConversation = () => {
@@ -46,22 +67,23 @@ const ConversationController = ({ conversation }: Props) => {
 			callback === null || callback[0] === "proceed"
 				? currEventIndex + 1
 				: callback[1];
-		if (typeof nextIndex !== "number") {
-			console.error("Unable to find / calculate valid index");
-			return;
+		const eventFunc = callback?.[0];
+		switch (eventFunc) {
+			case "end_conversation":
+				endConversation();
+				break;
+			case "multiple_choice":
+				// TODO: Show multiple choice responses
+				break;
+			default:
+				// Default is to just 'proceed' or 'jump' to next line (index-wise)
+				if (typeof nextIndex !== "number") {
+					console.error("Unable to find / calculate valid index");
+					return;
+				}
+				jumpToEvent(nextIndex);
+				break;
 		}
-		if (nextIndex >= 0 && nextIndex < events.length) {
-			// Update portrait + dialogue box
-			const nextEvent = events[nextIndex];
-			portraitRef?.current?.updatePortrait(nextEvent.speakerState);
-			dialogueBoxRef?.current?.updateDialogueIndex(0);
-			setCurrEventIndex(nextIndex);
-		} else {
-			// Reset portrait and end conversation
-			portraitRef?.current?.updatePortrait("idle");
-			setDialogueFinished(true);
-		}
-		// TODO: Add switch statement parsing EventFunc possibilities
 	};
 	return (
 		<div

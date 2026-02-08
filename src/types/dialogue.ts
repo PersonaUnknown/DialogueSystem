@@ -12,7 +12,11 @@ export type SpeakerState =
 /**
  * Possible conversation event callbacks
  */
-export type EventFunc = "jump_to" | "proceed";
+export type EventFunc =
+	| "jump_to"
+	| "proceed"
+	| "end_conversation"
+	| "multiple_choice";
 /**
  * Individual event consisting of what a character says and what to do afterwards
  */
