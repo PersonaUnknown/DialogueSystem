@@ -1,4 +1,4 @@
-import type { SpeakerState } from "./dialogue";
+import type { Conversation, SpeakerState } from "./dialogue";
 
 export interface CharacterPortraitRef {
 	updatePortrait: (state: SpeakerState) => void;
@@ -19,4 +19,8 @@ export interface MultipleChoiceOverlayRef {
 	showOverlay: () => void;
 	hideOverlay: () => void;
 	updateChoices: (options: Map<string, number>) => void;
+}
+
+export interface ConversationControllerRef {
+	updateConversationData: (data: Conversation) => void;
 }

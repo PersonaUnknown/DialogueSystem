@@ -115,3 +115,18 @@ export const EXAMPLE_CONVERSATION_MULTI: Conversation = {
 	],
 	questions: [exampleQuestion],
 };
+
+/**
+ * Conversation that uses custom external logic to create dialogue
+ */
+export const EXAMPLE_CONVERSATION_DYNAMIC: Conversation = {
+	speakerData: KIRUMI_TOJO_CHAR,
+	events: [
+		{
+			speakerState: "idle",
+			dialogue: ["I'm going to ask you a simple question.", "What's 2 + 2?"],
+			callback: ["multiple_choice", 0],
+		},
+	],
+	questions: [],
+};
