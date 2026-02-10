@@ -15,6 +15,4 @@ This simple dialogue system is made using React, TypeScript, and CSS.
 [x] Section that catalogues conversation examples
 [x] Add background prop to ConversationController
 [x] On-hover visuals for buttons
-[] Better mobile visual setup
-[] Sanity check to ensure conversation data is valid / useable
 [x] CI/CD Automated Testing
