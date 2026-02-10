@@ -17,11 +17,7 @@ const BackButton = ({ href = "/" }: Props) => {
 			}}
 			className="back-button"
 		>
-			<IoCaretBackOutline
-				size={20}
-				color="black"
-				className="group-hover:-translate-x-1 transition-transform duration-100"
-			/>
+			<IoCaretBackOutline size={20} color="black" />
 			Back
 		</Link>
 	);

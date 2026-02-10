@@ -5,13 +5,15 @@ import {
 	useRef,
 	useState,
 } from "react";
-import type { Conversation } from "../../types/dialogue";
+import { useUser } from "../../contexts/UserContext";
+import type { Conversation, UserBranchCheck } from "../../types/dialogue";
 import type {
 	CharacterPortraitRef,
 	ConversationControllerRef,
 	DialogueBoxRef,
 	MultipleChoiceOverlayRef,
 } from "../../types/refs";
+import { getBranchIndex } from "../../util/dialogue";
 import CharacterPortrait from "./CharacterPortrait";
 import DialogueBox from "./DialogueBox";
 import DialogueButton from "./DialogueButton";
@@ -35,6 +37,8 @@ const ConversationController = forwardRef(
 		const multiChoiceLayoutRef = useRef<MultipleChoiceOverlayRef>(null);
 		const { speakerData, events, questions } = conversation;
 		const currDialogue = events.map((event) => event.dialogue);
+		// Context
+		const currentUser = useUser(); // React Context stores dynamic data to share between conversations
 		// Methods
 		/**
 		 * Starts / resets dialogue box process
@@ -88,7 +92,6 @@ const ConversationController = forwardRef(
 					endConversation();
 					break;
 				case "multiple_choice": {
-					// TODO: Show multiple choice responses
 					if (typeof params !== "number") {
 						console.error("Invalid parameter / index given.");
 						return;
@@ -98,14 +101,33 @@ const ConversationController = forwardRef(
 					multiChoiceLayoutRef.current?.showOverlay();
 					break;
 				}
-				default:
-					// Default is to just 'proceed' or 'jump' to next line (index-wise)
+				case undefined:
+				case "proceed":
+				case "jump_to":
 					if (typeof nextIndex !== "number") {
 						console.error("Unable to find / calculate valid index");
 						return;
 					}
 					jumpToEvent(nextIndex);
 					break;
+				default: {
+					// Default is branch check
+					if (eventFunc === undefined) {
+						return;
+					}
+					const typedParams = params as UserBranchCheck;
+					const branchIndex = getBranchIndex(
+						eventFunc,
+						currentUser.user,
+						typedParams,
+					);
+					if (branchIndex === -1) {
+						jumpToEvent(currEventIndex + 1);
+					} else {
+						jumpToEvent(branchIndex);
+					}
+					break;
+				}
 			}
 		};
 		/**

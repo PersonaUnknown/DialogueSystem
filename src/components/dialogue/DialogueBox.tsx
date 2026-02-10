@@ -7,7 +7,9 @@ import {
 	useState,
 } from "react";
 import { RxDoubleArrowRight } from "react-icons/rx";
+import { useUser } from "../../contexts/UserContext";
 import type { DialogueBoxRef, TypewriterRef } from "../../types/refs";
+import { parseDynamicDialogue } from "../../util/dialogue";
 import Typewriter from "../text/Typewriter";
 import "./index.css";
 
@@ -30,6 +32,11 @@ const DialogueBox = forwardRef(
 		const typewriterRef = useRef<TypewriterRef>(null);
 		const [nameTopOffset, setNameTopOffset] = useState<number>(0);
 		const [currDialogueIndex, setCurrDialogueIndex] = useState<number>(0);
+		const currUser = useUser();
+		const currDialogue = parseDynamicDialogue(
+			dialogue[currDialogueIndex],
+			currUser.user,
+		);
 		/**
 		 * Progresses dialogue to next section, or progresses conversation if at end of dialogue section
 		 */
@@ -86,7 +93,7 @@ const DialogueBox = forwardRef(
 				>
 					{speakerName}
 				</div>
-				<Typewriter text={dialogue[currDialogueIndex]} ref={typewriterRef} />
+				<Typewriter text={currDialogue} ref={typewriterRef} />
 				<button
 					className="next-dialogue-button"
 					onClick={progressDialogue}

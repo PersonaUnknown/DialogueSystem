@@ -117,16 +117,86 @@ export const EXAMPLE_CONVERSATION_MULTI: Conversation = {
 };
 
 /**
- * Conversation that uses custom external logic to create dialogue
+ * Multiple choice questions to resemble asking questions instead of answering a question
+ */
+const exampleUserQuestion: Map<string, number> = new Map([
+	["Why do you hate the name Bob so much?", 4],
+	[
+		"Well... that's interesting. As long as you don't hate me, nice to meet you.",
+		5,
+	],
+	["That's a pretty strange remark. Is your brain ok?", 6],
+]);
+
+/**
+ * Conversation that uses custom external logic to create dialogue.
+ * Dynamic data checks and gets external data and either branches to
  */
 export const EXAMPLE_CONVERSATION_DYNAMIC: Conversation = {
 	speakerData: KIRUMI_TOJO_CHAR,
 	events: [
 		{
-			speakerState: "idle",
-			dialogue: ["I'm going to ask you a simple question.", "What's 2 + 2?"],
+			speakerState: "smile",
+			dialogue: [
+				"Hey, I'm checking your username right now.",
+				"Your name better not be Bob...",
+			],
+			callback: [
+				"branch_not_equal",
+				{
+					field: "username",
+					compare: "Bob",
+					branchTo: 2,
+				},
+			],
+		},
+		{
+			speakerState: "stern",
+			dialogue: [
+				"Oh boy, your name is actually Bob. That sucks.",
+				"I'm done talking to people named Bob for one lifetime.",
+			],
+			callback: ["end_conversation", null],
+		},
+		{
+			speakerState: "shy",
+			dialogue: [
+				"Oh thank goodness. Your name is not Bob.",
+				"I can actually talk to you fine.",
+			],
+			callback: null,
+		},
+		{
+			speakerState: "smile",
+			dialogue: [
+				"{username}, was it? Not a bad name. Much better than Bob at the very least.",
+			],
 			callback: ["multiple_choice", 0],
 		},
+		{
+			speakerState: "shy",
+			dialogue: [
+				"That name really brings me childhood terror.",
+				"Ever since I saw that dreaded builder, I never was the same mentally again...",
+			],
+			callback: ["end_conversation", null],
+		},
+		{
+			speakerState: "thinking",
+			dialogue: [
+				"And you're quite polite too! I've been thinking and I gotta say...",
+				"You really are a nice person.",
+			],
+			callback: ["end_conversation", null],
+		},
+		{
+			speakerState: "embarassed",
+			dialogue: [
+				"Hey, that's pretty rude you know.",
+				"I may be strange in the membrane, but I still have feelings... you know?",
+			],
+			callback: ["end_conversation", null],
+		},
 	],
-	questions: [],
+	questions: [exampleUserQuestion],
 };

@@ -1,17 +1,17 @@
 .back-button {
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px;
-    text-decoration: none;
-    color: #000000;
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 10px;
+	text-decoration: none;
+	color: #000000;
 }
 
 .back-button:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 .back-button:hover svg {
-    translate: -5px 0px;
-    transition-duration: 100ms;
+	translate: -5px 0px;
+	transition-duration: 100ms;
 }

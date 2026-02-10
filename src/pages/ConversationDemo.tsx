@@ -1,6 +1,8 @@
+import { useState } from "react";
 import BackButton from "../components/button/BackButton";
 import ConversationController from "../components/dialogue/ConversationController";
-import type { Conversation } from "../types/dialogue";
+import { UserContext } from "../contexts/UserContext";
+import type { Conversation, User } from "../types/dialogue";
 
 interface Props {
 	data: Conversation;
@@ -10,11 +12,19 @@ interface Props {
  * Demos the ConversationController under different conversation data
  */
 const ConversationDemo = ({ data }: Props) => {
+	const [user, setUser] = useState<User>({
+		username: "Bob",
+	});
 	return (
-		<div>
+		<UserContext.Provider
+			value={{
+				user,
+				setUser,
+			}}
+		>
 			<BackButton />
 			<ConversationController conversation={data} />
-		</div>
+		</UserContext.Provider>
 	);
 };
 

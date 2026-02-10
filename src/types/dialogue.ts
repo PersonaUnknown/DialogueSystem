@@ -10,13 +10,24 @@ export type SpeakerState =
 	| "thinking"
 	| "stern";
 /**
+ * Possible types of branches the conversation can take
+ */
+export type BranchType =
+	| "branch_equal"
+	| "branch_not_equal"
+	| "branch_greater"
+	| "branch_greater_equal"
+	| "branch_less"
+	| "branch_less_equal";
+/**
  * Possible conversation event callbacks
  */
 export type EventFunc =
 	| "jump_to"
 	| "proceed"
 	| "end_conversation"
-	| "multiple_choice";
+	| "multiple_choice"
+	| BranchType;
 /**
  * Individual event consisting of what a character says and what to do afterwards
  */
@@ -41,4 +52,18 @@ export interface Conversation {
 	speakerData: Speaker;
 	events: ConversationEvent[];
 	questions: Map<string, number>[];
+}
+/**
+ * User Information that dynamic Dialogue can use to check
+ */
+export interface User {
+	username: string;
+}
+/**
+ * The fields needed to branch elsewhere in the conversation
+ */
+export interface UserBranchCheck {
+	field: keyof User;
+	compare: unknown;
+	branchTo: number;
 }
