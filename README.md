@@ -1,6 +1,9 @@
 # Dialogue System
 A dialogue system to be used in React projects.
 
+# Tech Stack
+This simple dialogue system is made using React, TypeScript, and CSS.
+
 # Checklist
 [x] Character portrait visual that can be updated
 [x] Dialogue box that updates text
@@ -8,12 +11,10 @@ A dialogue system to be used in React projects.
 [x] Basic linear dialogue flow
 [x] Jump to different parts of dialogue conversation
 [x] Multiple choice questions that allow for different responses
-[] Unique logic checks during conversation where dialogue uses custom variable values
-[] Section that catalogues conversation examples
-[] Add background prop to ConversationController
-[] On-hover visuals for buttons
-[] Fade text for multiple choice responses if already answered with that response
+[x] Unique logic checks during conversation where dialogue uses custom variable values
+[x] Section that catalogues conversation examples
+[x] Add background prop to ConversationController
+[x] On-hover visuals for buttons
 [] Better mobile visual setup
 [] Sanity check to ensure conversation data is valid / useable
 [] CI/CD Automated Testing
-[] Asynchonous loading of resources
