@@ -1,5 +1,10 @@
 import type { Conversation, Speaker, SpeakerState } from "../types/dialogue";
 
+export const BACKGROUND_DICT: Map<string, string> = new Map([
+	["default", "/src/assets/backgrounds/nurses_office.png"],
+	["404", "/src/assets/404_page_not_found.png"],
+]);
+
 export const KIRUMI_TOJO_PORTRAITS: Map<SpeakerState, string> = new Map([
 	["idle", "/src/assets/portraits/tojo/idle.png"],
 	["smile", "/src/assets/portraits/tojo/smile.png"],

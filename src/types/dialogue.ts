@@ -50,6 +50,7 @@ export interface Speaker {
  */
 export interface Conversation {
 	speakerData: Speaker;
+	background?: string;
 	events: ConversationEvent[];
 	questions: Map<string, number>[];
 }

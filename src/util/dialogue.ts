@@ -1,9 +1,4 @@
-import type {
-	BranchType,
-	ConversationEvent,
-	User,
-	UserBranchCheck,
-} from "../types/dialogue";
+import type { BranchType, User, UserBranchCheck } from "../types/dialogue";
 
 /**
  * Check's if the conversation should proceed as usual or branch elsewhere

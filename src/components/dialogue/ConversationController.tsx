@@ -6,6 +6,7 @@ import {
 	useState,
 } from "react";
 import { useUser } from "../../contexts/UserContext";
+import { BACKGROUND_DICT } from "../../data/dialogue";
 import type { Conversation, UserBranchCheck } from "../../types/dialogue";
 import type {
 	CharacterPortraitRef,
@@ -35,7 +36,7 @@ const ConversationController = forwardRef(
 		const portraitRef = useRef<CharacterPortraitRef>(null);
 		const dialogueBoxRef = useRef<DialogueBoxRef>(null);
 		const multiChoiceLayoutRef = useRef<MultipleChoiceOverlayRef>(null);
-		const { speakerData, events, questions } = conversation;
+		const { speakerData, events, questions, background } = conversation;
 		const currDialogue = events.map((event) => event.dialogue);
 		// Context
 		const currentUser = useUser(); // React Context stores dynamic data to share between conversations
@@ -149,9 +150,9 @@ const ConversationController = forwardRef(
 				}}
 			>
 				<div
-					className="container video-container"
+					className="container video-container dialogue-background"
 					style={{
-						backgroundColor: "#ff00ff",
+						background: `url(${BACKGROUND_DICT.get(background ?? "default")})`,
 						position: "relative",
 					}}
 				>

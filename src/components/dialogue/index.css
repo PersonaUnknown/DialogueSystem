@@ -8,6 +8,11 @@
 	transform-origin: bottom center;
 }
 
+.dialogue-background {
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
 .talk-dialogue-button {
 	background: #181818;
 	border: transparent;
@@ -15,6 +20,12 @@
 	font-size: 2rem;
 	padding: 1rem 2rem;
 	cursor: pointer;
+}
+
+.talk-dialogue-button:hover {
+	background: #2e2e2e;
+	transition: all;
+	transition-duration: 100ms;
 }
 
 .next-dialogue-button {
